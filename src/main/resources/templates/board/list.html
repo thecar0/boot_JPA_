@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+
+<div layout:fragment="content" class="container-md">
+    <h1>Board List Page</h1>
+    <div>
+        <div class="text-end">
+            <a href="/board/register" class="btn btn-warning">register</a>
+        </div>
+
+        <table class="table table-bordered table-hover align-middle my-5">
+            <thead class="table-warning text-center">
+            <tr>
+                <th style="width: 10%">번호</th>
+                <th>제목</th>
+                <th style="width: 20%">작성자</th>
+                <th style="width: 20%">작성일</th>
+                <th style="width: 10%">조회수</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="board : ${ph.list}">
+                <td class="text-center" th:text="${board.bno}"></td>
+
+                <td>
+                    <a th:href="@{/board/detail(bno=${board.bno})}"
+                       th:text="${board.title}"></a>
+                </td>
+
+                <td class="text-center" th:text="${board.writer}"></td>
+
+                <td class="text-center"
+                    th:text="${#temporals.format(board.regDate, 'yyyy-MM-dd')}"></td>
+
+                <td class="text-center" th:text="${board.readCount}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <li class="page-item" th:classappend="${ph.prev eq false ? 'disabled' : ''}">
+            <a class="page-link" th:href="@{/board/list(pageNo=${ph.startPage}-1)}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <th:block th:each="i:${#numbers.sequence(ph.startPage, ph.endPage)}" >
+            <li class="page-item" th:classappend="${ph.pageNo == i} ? 'active' : ''"><a class="page-link" th:href="@{/board/list(pageNo=${i})}">[[${i}]]</a></li>
+        </th:block>
+        <li class="page-item" th:classappend="${ph.next eq false ? 'disabled' : ''}">
+            <a class="page-link" th:href="@{/board/list(pageNo=${ph.endPage}+1)}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+</div>
+
+</html>

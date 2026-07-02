@@ -1,0 +1,9 @@
+.page-item.active .page-link {
+    background-color: #ffc107;   /* 원하는 색 */
+    border-color: #ffc107;
+    color: #fff;
+}
+.bntline{
+    border-bottom: 1px solid #a7acb1;
+    padding-bottom: 30px;
+}

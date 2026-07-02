@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}"
+>
+<div layout:fragment="content" class="container-md my-5">
+    <!--  여기가 main  -->
+
+    <h1>[ no.[[${board.bno}]] ] Detail Page</h1>
+    <form action="/board/update" method="post" class="my-5" id="modForm">
+        <input type="hidden" name="bno" th:value="${board.bno}">
+        <div class="mb-3">
+            <label for="t" class="form-label">Title</label>
+            <input type="text" class="form-control" name="title" id="t" readonly th:value="${board.title}">
+        </div>
+        <div class="mb-3">
+            <label for="w" class="form-label">Writer</label>
+            <input type="text" class="form-control" id="w" name="writer" readonly th:value="${board.writer}">
+        </div>
+        <div class="mb-3">
+            <label for="r" class="form-label">regDate</label>
+            <input type="text" th:value="${#temporals.format(board.regDate,'yyyy-MM-dd HH:mm:ss')}" readonly class="form-control" id="r" >
+        </div>
+        <div class="mb-3">
+            <label for="c" class="form-label">Content</label>
+            <textarea class="form-control" id="c" name="content" readonly rows="10" cols="30">[[${board.content}]]</textarea>
+        </div>
+    </form>
+
+    <div class="bntline">
+    <a th:href="@{/board/list}" class="text-decoration-none">
+        <button type="button" id="listBtn" class="btn btn-success">list</button>
+    </a>
+    <a th:href="@{#}" class="text-decoration-none">
+        <button type="button" id="modBtn" class="btn btn-warning">modify</button>
+    </a>
+    <a th:href="@{/board/remove(bno=${board.bno})}" class="text-decoration-none">
+        <button type="button" id="delBtn" class="btn btn-danger">delete</button>
+    </a>
+    </div>
+
+    <!-- 댓글 라인 -->
+    <div id="comment">
+    <!-- 댓글 입력 -->
+        <div class="input-group my-3">
+            <span class="input-group-text" id="cmtWriter">writer</span>
+            <input type="text" class="form-control" id="cmtText" placeholder="댓글을 입력하세요." aria-label="Username" aria-describedby="basic-addon1">
+            <button type="button" id="cmtAddBtn" class="btn btn-warning">create</button>
+        </div>
+    <!-- 댓글 출력 -->
+        <ul class="list-group list-group-flush" id="cmtListArea">
+            <li class="list-group-item shadow-sm rounded">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">writer</div>
+                    content
+                </div>
+                <span class="badge rounded-pill text-bg-warning">regDate</span>
+                <button type="button" class="btn btn-outline-success btn-sm">%</button>
+                <button type="button" class="btn btn-outline-danger btn-sm">X</button>
+            </li>
+        </ul>
+    </div>
+
+    <script th:src="@{/js/boardModify.js}"></script>
+    <script th:src="@{/js/boardComment.js}"></script>
+</div>

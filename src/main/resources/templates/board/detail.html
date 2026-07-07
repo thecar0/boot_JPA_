@@ -50,18 +50,50 @@
         </div>
     <!-- 댓글 출력 -->
         <ul class="list-group list-group-flush" id="cmtListArea">
-            <li class="list-group-item shadow-sm rounded">
-                <div class="ms-2 me-auto">
-                    <div class="fw-bold">writer</div>
-                    content
-                </div>
-                <span class="badge rounded-pill text-bg-warning">regDate</span>
-                <button type="button" class="btn btn-outline-success btn-sm">%</button>
-                <button type="button" class="btn btn-outline-danger btn-sm">X</button>
-            </li>
+<!--            <li class="list-group-item shadow-sm rounded">-->
+<!--                <div class="ms-2 me-auto">-->
+<!--                    <div class="fw-bold">writer</div>-->
+<!--                    content-->
+<!--                </div>-->
+<!--                <span class="badge rounded-pill text-bg-warning">regDate</span>-->
+<!--                <button type="button" class="btn btn-outline-success btn-sm">%</button>-->
+<!--                <button type="button" class="btn btn-outline-danger btn-sm">X</button>-->
+<!--            </li>-->
         </ul>
+
+        <!-- more button -->
+        <div class="input-group my-3">
+            <button type="button" id="moreBtn"
+                    data-page="1" class="btn btn-warning"
+                    style="visibility: hidden">more +</button>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="cmtWriterMod">Writer</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" class="form-control" id="cmtTextMod">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="cmtModBtn">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
+    <script th:inline="javascript">
+        const bno = [[${board.bno}]];
+    </script>
     <script th:src="@{/js/boardModify.js}"></script>
     <script th:src="@{/js/boardComment.js}"></script>
+    <script>
+        spreadCommentList(bno)
+    </script>
 </div>

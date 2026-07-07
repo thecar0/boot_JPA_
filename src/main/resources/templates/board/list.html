@@ -28,7 +28,10 @@
 
                 <td>
                     <a th:href="@{/board/detail(bno=${board.bno})}"
-                       th:text="${board.title}"></a>
+                       th:text="${board.title}">
+                    </a>
+                        <button type="button" class="btn btn-info btn-sm">[[${board.cmtQty}]]</button>
+                        <button type="button" class="btn btn-light btn-sm">[[${board.fileQty}]]</button>
                 </td>
 
                 <td class="text-center" th:text="${board.writer}"></td>

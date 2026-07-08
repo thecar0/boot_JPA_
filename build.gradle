@@ -27,11 +27,19 @@ dependencies {
 	implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
 	// Source: https://mvnrepository.com/artifact/net.coobird/thumbnailator
 	implementation 'net.coobird:thumbnailator:0.4.20'
+	// Source: https://mvnrepository.com/artifact/com.querydsl/querydsl-jpa
+	implementation 'com.querydsl:querydsl-jpa:5.0.0'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	// Querydsl QClass 생성을 위한 어노테이션 프로세서 (핵심!)
+	annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jakarta"
+	// Java 17 및 Jakarta EE 환경에서 필요한 API들 써주는것을 권장!!
+	// implementation 'org.springframework.boot:spring-boot-starter-data-jpa' 포함되어 있는 라이브러리
+	annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+	annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testCompileOnly 'org.projectlombok:lombok'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
@@ -40,4 +48,15 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+// Qtype 생성 위치 설정
+def querydslSrcDir = 'src/main/generated'
+// 테이블에 변동이 있을 경우, 서버를 껐다 켰을 경우 QType 지우고 다시 생성
+clean{
+	delete file(querydslSrcDir)
+}
+// compile 시 비교되는 QType 위치 설정
+tasks.withType(JavaCompile){
+	options.generatedSourceOutputDirectory = file(querydslSrcDir)
 }

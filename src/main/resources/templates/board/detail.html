@@ -4,11 +4,15 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout}"
 >
-<div layout:fragment="content" class="container-md my-5">
+<div layout:fragment="content" class="container-md my-5"
+     th:with="board = ${boardFile.boardDTO},
+    fileList = ${boardFile.fileList}">
     <!--  여기가 main  -->
-
-    <h1>[ no.[[${board.bno}]] ] Detail Page</h1>
-    <form action="/board/update" method="post" class="my-5" id="modForm">
+    <h2 class="fw-bold mb-4">
+        [ no.[[${board.bno}]] ] 게시글 상세보기
+    </h2>
+    <div class="card-custom">
+    <form action="/board/update" enctype="multipart/form-data" method="post" class="my-5" id="modForm">
         <input type="hidden" name="bno" th:value="${board.bno}">
         <div class="mb-3">
             <label for="t" class="form-label">Title</label>
@@ -26,9 +30,46 @@
             <label for="c" class="form-label">Content</label>
             <textarea class="form-control" id="c" name="content" readonly rows="10" cols="30">[[${board.content}]]</textarea>
         </div>
-    </form>
 
-    <div class="bntline">
+        <!--file print-->
+        <div class="row mt-4">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item" th:each="fileDTO:${fileList}">
+                    <div class="mb-3" th:if="${fileDTO.fileType eq 1}">
+                        <!--그림 파일일 경우-->
+                        <img
+                                class="file-image"
+                                th:src="@{|/upload/${fileDTO.saveDir}/${fileDTO.uuid}_${fileDTO.fileName}|}">
+                    </div>
+                    <div class="mb-3" th:unless="${fileDTO.fileType eq 1}">
+                        <!--그 외 파일일 경우 다운로드 가능하게... -->
+                        <a th:href="@{|/upload/${fileDTO.saveDir}/${fileDTO.uuid}_${fileDTO.fileName}|}" th:download="${fileDTO.fileName}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-file-earmark-arrow-down-fill" viewBox="0 0 16 16">
+                                <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1m-1 4v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 11.293V7.5a.5.5 0 0 1 1 0"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="mb-3 fw-bold">[[${fileDTO.fileName}]]</div>
+                    <span class="badge rounded-pill text-bg-warning">[[${fileDTO.regDate}]] / [[${fileDTO.fileSize}]]bytes</span>
+                    <button type="button" class="btn btn-outline-danger file-x"
+                            style="visibility: hidden" th:data-uuid="${fileDTO.uuid}">X</button>
+                </li>
+            </ul>
+        </div>
+
+        <!-- file upload 추가 -->
+        <div class="mb-3">
+            <input type="file" class="form-control" id="file" name="files" multiple
+                   style="display: none">
+            <button type="button" id="trigger" class="btn btn-secondary" style="display: none">File Upload</button>
+        </div>
+
+        <!-- file print-->
+        <div class="mb-3 my-3" id="fileZone"></div>
+    </form>
+    </div>
+
+    <div class="bntline my-3">
     <a th:href="@{/board/list}" class="text-decoration-none">
         <button type="button" id="listBtn" class="btn btn-success">list</button>
     </a>
@@ -93,6 +134,7 @@
     </script>
     <script th:src="@{/js/boardModify.js}"></script>
     <script th:src="@{/js/boardComment.js}"></script>
+    <script th:src="@{/js/boardRegister.js}"></script>
     <script>
         spreadCommentList(bno)
     </script>

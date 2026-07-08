@@ -5,13 +5,63 @@
       layout:decorate="~{layout/layout}">
 
 <div layout:fragment="content" class="container-md">
-    <h1>Board List Page</h1>
-    <div>
-        <div class="text-end">
-            <a href="/board/register" class="btn btn-warning">register</a>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="fw-bold mb-0">
+                📋 게시글 목록
+            </h2>
+
+            <small class="text-secondary">
+                자유롭게 글을 작성해보세요.
+            </small>
+
         </div>
 
-        <table class="table table-bordered table-hover align-middle my-5">
+        <a href="/board/register"
+           class="btn btn-warning align-content-center">
+            + 글쓰기
+        </a>
+
+    </div>
+    <div>
+        <div class="card-custom my-3">
+
+            <form action="/board/list" class="row g-3 align-items-center mb-4">
+
+                <div class="col-lg-3">
+                    <select class="form-select search-select" name="type">
+                        <option selected disabled>검색 옵션</option>
+                        <option value="twc">전체</option>
+                        <option value="t">제목</option>
+                        <option value="w">작성자</option>
+                        <option value="c">내용</option>
+                        <option value="wt">제목 + 작성자</option>
+                        <option value="tc">제목 + 내용</option>
+                        <option value="cw">작성자 + 내용</option>
+                    </select>
+                </div>
+
+                <div class="col-lg-7">
+                    <input
+                            class="form-control search-input"
+                            name="keyword"
+                            type="search"
+                            placeholder="검색어를 입력하세요">
+                </div>
+
+                <input type="hidden" name="pageNo" value="1">
+
+                <div class="col-lg-2 d-grid">
+                    <button class="btn btn-warning">
+                        🔍 검색
+                    </button>
+                </div>
+
+            </form>
+
+            <table class="table table-hover align-middle mb-0">
             <thead class="table-warning text-center">
             <tr>
                 <th style="width: 10%">번호</th>
@@ -30,8 +80,13 @@
                     <a th:href="@{/board/detail(bno=${board.bno})}"
                        th:text="${board.title}">
                     </a>
-                        <button type="button" class="btn btn-info btn-sm">[[${board.cmtQty}]]</button>
-                        <button type="button" class="btn btn-light btn-sm">[[${board.fileQty}]]</button>
+                    <span class="badge rounded-pill text-dark bg-warning-subtle border border-warning ms-2">
+                        💬 [[${board.cmtQty}]]
+                    </span>
+
+                    <span class="badge rounded-pill text-dark bg-light border ms-1">
+                        📎 [[${board.fileQty}]]
+                    </span>
                 </td>
 
                 <td class="text-center" th:text="${board.writer}"></td>
@@ -43,6 +98,7 @@
             </tr>
             </tbody>
         </table>
+        </div>
     </div>
 
 <nav aria-label="Page navigation example">

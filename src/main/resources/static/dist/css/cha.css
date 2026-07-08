@@ -1,9 +1,241 @@
-.page-item.active .page-link {
-    background-color: #ffc107;   /* 원하는 색 */
-    border-color: #ffc107;
-    color: #fff;
+/* ===== 공통 ===== */
+
+body{
+    background:#f8f9fa;
+    color:#333;
+    font-family:'Pretendard', sans-serif;
 }
-.bntline{
-    border-bottom: 1px solid #a7acb1;
-    padding-bottom: 30px;
+
+main{
+    padding:40px 0;
+}
+
+/* 제목 */
+
+h1{
+    font-weight:700;
+    margin-bottom:30px;
+}
+
+/* ===== 카드 ===== */
+
+.card-custom{
+    background:white;
+    border:none;
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 8px 20px rgba(0,0,0,.05);
+}
+
+/* ===== 버튼 ===== */
+
+.btn{
+    border-radius:12px;
+    transition:.25s;
+    font-weight:600;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+/* 노랑 */
+
+.btn-warning{
+    background:#FFC107;
+    border:none;
+    color:#333;
+}
+
+.btn-warning:hover{
+    background:#ffca2c;
+}
+
+/* 초록 */
+
+.btn-success{
+    border:none;
+}
+
+/* 삭제 */
+
+.btn-danger{
+    border:none;
+}
+
+/* ===== 입력창 ===== */
+
+.form-control{
+    border-radius:12px;
+    border:1px solid #ddd;
+}
+
+.form-control:focus{
+    border-color:#FFC107;
+    box-shadow:0 0 0 .2rem rgba(255,193,7,.25);
+}
+
+/* ===== 테이블 ===== */
+
+.table{
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 8px 20px rgba(0,0,0,.05);
+    border-spacing:0;
+    border-collapse:separate;
+}
+
+.table td:not(:last-child),
+.table th:not(:last-child){
+    border-right:1px solid #dee2e6;
+}
+
+.table thead{
+    background:#FFF3CD;
+}
+
+.table td,
+.table th{
+    border-bottom:1px solid #dee2e6;
+}
+.table th{
+    border:none;
+}
+
+.table td{
+    vertical-align:middle;
+}
+
+/* hover */
+
+.table tbody tr:hover{
+    background:#fff9e6;
+}
+
+/* ===== 페이지 ===== */
+
+.page-link{
+    border-radius:10px !important;
+    margin:0 3px;
+    color:#444;
+}
+
+.page-item.active .page-link{
+    background:#FFC107;
+    border-color:#FFC107;
+    color:black;
+}
+
+/* ===== 댓글 ===== */
+
+.list-group-item{
+    border-radius:15px;
+    margin-bottom:10px;
+    border:1px solid #eee;
+}
+
+/* ===== badge ===== */
+
+.badge{
+    border-radius:30px;
+}
+
+/* ===== 이미지 ===== */
+
+img{
+    border-radius:15px;
+}
+
+/* ===== 첨부파일 ===== */
+
+.file-image{
+    width:250px;
+    border-radius:15px;
+    margin-bottom:10px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+/* ==========================
+   Search
+========================== */
+
+.search-select,
+.search-input{
+    height:48px;
+    border-radius:12px;
+    border:1px solid #ddd;
+}
+
+.search-select:focus,
+.search-input:focus{
+    border-color:#FFC107;
+    box-shadow:0 0 0 .2rem rgba(255,193,7,.2);
+}
+
+.search-input::placeholder{
+    color:#999;
+}
+
+/* 검색 버튼 */
+
+.btn-warning{
+    height:48px;
+    border-radius:12px;
+    font-weight:600;
+}
+
+/* 카드 */
+
+.card-custom{
+    background:#fff;
+    border-radius:18px;
+    padding:25px;
+    box-shadow:0 10px 25px rgba(0,0,0,.05);
+}
+
+/* 테이블 */
+
+.table{
+    margin-bottom:0;
+}
+
+.table thead th{
+    border:none;
+    background:#FFF3CD;
+    font-weight:600;
+}
+
+.table tbody td{
+    border-color:#f1f1f1;
+}
+
+.table tbody tr:hover{
+    background:#fff9e6;
+}
+
+/* 제목 링크 */
+
+.table td a{
+    color:#333;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.table td a:hover{
+    color:#e0a800;
+}
+
+/* 댓글 */
+
+.bg-primary{
+    background:#FFD54F !important;
+    color:#333 !important;
+}
+
+/* 첨부파일 */
+
+.bg-secondary{
+    background:#FFE082 !important;
+    color:#333 !important;
 }

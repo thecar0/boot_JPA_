@@ -1,7 +1,10 @@
 package com.example.boot.service;
 
 import com.example.boot.dto.BoardDTO;
+import com.example.boot.dto.BoardFileDTO;
+import com.example.boot.dto.FileDTO;
 import com.example.boot.entity.Board;
+import com.example.boot.entity.File;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -47,11 +50,49 @@ public interface BoardService {
 
 //    List<BoardDTO> getList();
 
-    BoardDTO getDetail(Long bno);
+    BoardFileDTO getDetail(Long bno);
 
     void update(BoardDTO boardDTO);
 
     void remove(Long bno);
 
     Page<BoardDTO> getList(int pageNO);
+
+    // file convert
+    // FileDTO => FileEntity (date X)
+    default File convertDTOToEntity(FileDTO fileDTO){
+        return File.builder()
+                .uuid(fileDTO.getUuid())
+                .saveDir(fileDTO.getSaveDir())
+                .fileName(fileDTO.getFileName())
+                .fileType(fileDTO.getFileType())
+                .bno(fileDTO.getBno())
+                .fileSize(fileDTO.getFileSize())
+                .build();
+    }
+
+    // FileEntity => FileDTO (date O)
+    default FileDTO convertEntityToDto(File file) {
+        return FileDTO.builder()
+                .uuid(file.getUuid())
+                .saveDir(file.getSaveDir())
+                .fileName(file.getFileName())
+                .fileType(file.getFileType())
+                .fileSize(file.getFileSize())
+                .regDate(file.getRegDate())
+                .modDate(file.getModDate())
+                .build();
+    }
+
+    Long insert(BoardFileDTO boardFileDTO);
+
+    FileDTO getFile(String uuid);
+
+    long fileRemove(String uuid);
+
+    void modify(BoardFileDTO boardFileDTO);
+
+    List<FileDTO> gettodayFileList(String today);
+
+    Page<BoardDTO> getList(int pageNo, String type, String keyword);
 }

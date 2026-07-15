@@ -2,7 +2,6 @@ package com.example.boot.handler;
 
 import com.example.boot.dto.FileDTO;
 import lombok.extern.slf4j.Slf4j;
-import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 

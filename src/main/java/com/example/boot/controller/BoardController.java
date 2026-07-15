@@ -67,11 +67,11 @@ public class BoardController {
     public void list(Model model,
                      @RequestParam(name = "pageNo", required = false, defaultValue = "1") int pageNo,
                      @RequestParam(name = "type", required = false)String type,
-                     @RequestParam(name = "kewored", required = false)String keyword){
+                     @RequestParam(name = "keyword", required = false)String keyword){
         log.info("type >> {}", type);
         log.info("keyword >> {}", keyword);
 
-        Page<BoardDTO> list = boardService.getList(pageNo);
+        Page<BoardDTO> list = boardService.getList(pageNo, type, keyword);
         model.addAttribute("list",list);
 //        log.info("getTotalElements >> {}", list.getTotalElements()); // 전체 게시글 수
 //        log.info("getTotalPages >> {}", list.getTotalPages()); // realEndPage
@@ -79,6 +79,7 @@ public class BoardController {
 //        log.info("hasNext >> {}", list.hasNext());; // 다음버튼의 필요 여부
 
         PagingHandler ph = new PagingHandler(list, pageNo, type, keyword);
+        log.info("ph >> {}",ph);
         model.addAttribute("ph", ph);
     }
 

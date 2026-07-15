@@ -119,12 +119,20 @@ h1{
     border-radius:10px !important;
     margin:0 3px;
     color:#444;
+    border:none;
+    box-shadow:0 2px 6px rgba(0,0,0,.06);
+}
+
+.page-link:hover{
+    background:#fff3cd;
+    color:#333;
 }
 
 .page-item.active .page-link{
     background:#FFC107;
-    border-color:#FFC107;
-    color:black;
+    border:none;
+    color:#333;
+    box-shadow:0 4px 10px rgba(255,193,7,.35);
 }
 
 /* ===== 댓글 ===== */

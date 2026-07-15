@@ -100,7 +100,12 @@ public class BoardServiceImpl implements BoardService{
     @Override
     public Page<BoardDTO> getList(int pageNo, String type, String keyword) {
         // page + search
-        return null;
+        // pageable, type, keyword => Page<Board>
+        Pageable pageable = PageRequest.of(pageNo-1, 10,
+                Sort.by("bno").descending());
+        log.info("1 >>");
+        Page<Board> pageList = boardRepository.searchBoard(type, keyword, pageable);
+        return pageList.map(this :: convertEntityToDto);
     }
 
     @Override

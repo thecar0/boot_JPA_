@@ -28,7 +28,7 @@ public class FileSweeper {
 
     // cron 방식
     // 스프링(Spring) 기반 환경: 초(0~59) 분(0~59)
-    @Scheduled(cron = "00 39 15 * * *")
+    @Scheduled(cron = "00 14 23 * * *")
     public void fileSweeper(){
         log.info(">> fileSweeper Start >>{}", LocalDateTime.now());
         // DB 에 등록된 파일 리스트 가져오기 (오늘 날짜 폴더만)

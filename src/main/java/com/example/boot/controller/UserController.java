@@ -2,9 +2,11 @@ package com.example.boot.controller;
 
 import com.example.boot.dto.UserDTO;
 import com.example.boot.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +29,14 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public void login(){
+    public void login(HttpServletRequest request, Model model){
+        String errMsg = (String)request.getSession().getAttribute("errMsg");
+        if(errMsg != null){
+            log.info(">> errMsg >>{}", errMsg);
+            model.addAttribute("errMsg", errMsg);
+        }
+        // 전송후 지우기
+        request.getSession().removeAttribute("errMsg");
 
     }
 }

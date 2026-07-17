@@ -5,6 +5,8 @@ import com.example.boot.dto.UserDTO;
 import com.example.boot.entity.AuthUser;
 import com.example.boot.entity.User;
 
+import java.util.List;
+
 public interface UserService {
     // convt
     // DTO -> Entity
@@ -12,8 +14,7 @@ public interface UserService {
         return User.builder()
                 .email(userDTO.getEmail())
                 .pwd(userDTO.getPwd())
-                .nickName(userDTO.getNickname())
-                .lastLogin(userDTO.getLastLogin())
+                .nickName(userDTO.getNickName())
                 .build();
     }
 
@@ -21,7 +22,7 @@ public interface UserService {
     default UserDTO convertEntitiyToDTO(User user){
         return UserDTO.builder()
                 .email(user.getEmail())
-                .nickname(user.getNickName())
+                .nickName(user.getNickName())
                 .lastLogin(user.getLastLogin())
                 .regDate(user.getRegDate())
                 .modDate(user.getModDate())
@@ -44,4 +45,16 @@ public interface UserService {
     String insert(UserDTO userDTO);
 
     void lastloginUpdate(String name);
+
+    void grantAdminRole(String adminEmail);
+
+    UserDTO getDetail(String name);
+
+    String modify(UserDTO userDTO);
+
+    List<UserDTO> getList();
+
+    String remove(String name);
+
+    boolean checkEmail(String email);
 }

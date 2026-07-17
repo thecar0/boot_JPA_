@@ -5,6 +5,7 @@ import com.example.boot.dto.BoardFileDTO;
 import com.example.boot.dto.FileDTO;
 import com.example.boot.entity.Board;
 import com.example.boot.entity.File;
+import org.jspecify.annotations.Nullable;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -95,4 +96,6 @@ public interface BoardService {
     List<FileDTO> gettodayFileList(String today);
 
     Page<BoardDTO> getList(int pageNo, String type, String keyword);
+
+    List<BoardDTO> getTop5();
 }

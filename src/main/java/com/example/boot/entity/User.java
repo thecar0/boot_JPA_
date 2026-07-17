@@ -42,4 +42,14 @@ public class User extends TimeBase{
                 .auth(role)
                 .build());
     }
+
+    // authList 에서 해당 role 을 가진 객체를 찾아 제거
+    public void removeAuth(AuthRole role){
+        if(this.authList == null){
+            this.authList = new ArrayList<>();
+            return;
+        }else {
+            this.authList.removeIf(auth -> auth.getAuth() == role);
+        }
+    }
 }

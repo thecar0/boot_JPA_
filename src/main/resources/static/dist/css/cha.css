@@ -39,6 +39,19 @@ h1{
     transform:translateY(-2px);
 }
 
+
+/* HOME 버튼 */
+
+.home-btn{
+    line-height:40px;
+}
+
+.home-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+}
+
 /* 노랑 */
 
 .btn-warning{
@@ -246,4 +259,35 @@ img{
 .bg-secondary{
     background:#FFE082 !important;
     color:#333 !important;
+}
+
+/* ===== User Modify ===== */
+
+.profile-card{
+    overflow:hidden;
+}
+
+.profile-left{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: rgb(255 248 225 / 0.26);
+    padding:30px;
+}
+
+.profile-img{
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    object-fit:cover;
+    border:5px solid white;
+    box-shadow:0 6px 15px rgba(0,0,0,.12);
+}
+
+.profile-card .card-body{
+    padding:35px;
+}
+
+.profile-card p{
+    margin-bottom:14px;
 }

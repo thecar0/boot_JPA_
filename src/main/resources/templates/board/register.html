@@ -10,6 +10,8 @@
     <div class="card-custom">
 
     <form action="/board/register" method="post" enctype="multipart/form-data" class="my-5">
+        <!-- CSRF 토큰 추기 -->
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 
         <div class="mb-3">
             <label for="t" class="form-label">TITLE</label>
@@ -18,7 +20,7 @@
 
         <div class="mb-3">
             <label for="w" class="form-label">WRITER</label>
-            <input type="text" class="form-control" id="w" name="writer" placeholder="writer...">
+            <input type="text" class="form-control" id="w" name="writer" th:value="${#authentication.name}" readonly>
         </div>
 
         <div class="mb-3">

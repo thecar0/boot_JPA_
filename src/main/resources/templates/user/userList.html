@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+
+<div layout:fragment="content" class="container-md">
+    <h1>User List (ADMIN)</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>이메일</th>
+            <th>닉네임</th>
+            <th>권한</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="user : ${list}">
+            <td th:text="${user.email}"></td>
+
+
+            <td th:text="${user.nickName}"></td>
+
+            <td>
+            <span th:each="auth : ${user.authList}"
+                  th:text="${auth.role}"></span>
+
+                <a th:href="@{/user/admin(email=${user.email})}">
+                <button type="button" class="btn btn-outline-danger">+ admin</button>
+                </a>
+
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+</html>

@@ -53,7 +53,18 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         // 직전 url 의 정보로 리다이렉트 해줘야 함.
         // 이전 mapping 경로 가져오기 => 없으면 /board/list 로 보내기
         SavedRequest savedRequest = requestCache.getRequest(request, response);
-        redirectStrategy.sendRedirect(request, response,
-                savedRequest != null ? savedRequest.getRedirectUrl() : "/board/list");
+        if(savedRequest != null){
+            String redirectUrl = savedRequest.getRedirectUrl();
+
+            // 이상한 기본 경로면 홈으로 보냄
+            if(redirectUrl.contains("/user?continue")){
+                redirectStrategy.sendRedirect(request, response, "/");
+            }else{
+                redirectStrategy.sendRedirect(request, response, redirectUrl);
+            }
+
+        }else{
+            redirectStrategy.sendRedirect(request, response, "/");
+        }
     }
 }

@@ -109,6 +109,14 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
+    public List<BoardDTO> getTop5() {
+        return boardRepository.findTop5ByOrderByReadCountDesc()
+                .stream()
+                .map(this::convertEntityToDto)
+                .toList();
+    }
+
+    @Override
     public Long insert(BoardDTO boardDTO) {
         // CRUD에 해당하는 메서드 제공
         // save() : 저장

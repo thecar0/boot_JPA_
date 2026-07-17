@@ -8,8 +8,12 @@
     <h1>Join Page</h1>
 
     <form action="/user/join" method="post" class="my-5">
+        <!-- CSRF 토큰 추기 -->
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
         <div class="mb-3">
             <label for="e" class="form-label">email</label>
+            <button type="button" id="userBtn" class="btn btn-outline-danger">중복 확인</button>
             <input type="text" class="form-control" name="email" id="e" placeholder="email..." >
         </div>
 
@@ -20,10 +24,12 @@
 
         <div class="mb-3">
             <label for="n" class="form-label">nickname</label>
-            <input type="text" class="form-control" name="nickname" id="n" placeholder="nickname...">
+            <input type="text" class="form-control" name="nickName" id="n" placeholder="nickname...">
         </div>
 
         <button type="submit" class="btn btn-warning">join</button>
+
+        <script th:src="@{/js/userJoin.js}"></script>
     </form>
 </div>
 </html>

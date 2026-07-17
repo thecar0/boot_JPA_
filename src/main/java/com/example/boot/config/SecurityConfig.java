@@ -31,13 +31,14 @@ public class SecurityConfig {
         // 의지와는 무관하게 특정 웹 사이트에 악의적인 요청(비밀번호변경, 계좌이체, 게시글 삭제)
         // 강제로 보내게 하는 사이버 공격
         // 방어 방법 csrf 토큰 사용 (개발단계에서는 막아놓고 나중에 배포단계에서 해지)
+        // method = post, put, delete (csrf 토큰을 보내야 인증단계를 거친 후 처리)
         return http
-                .csrf(csrf -> csrf.disable())
+//                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/user/list").hasAnyRole("ADMIN")
                         .requestMatchers("/", "/dist/**","/css/**","/js/**","/image/**",
                                 "/upload/**", "/board/list","/board/detail","/comment/list/**",
-                                "/user/join", "/user/login","/error/**").permitAll()
+                                "/user/join", "/user/login","/error/**","/user/check").permitAll()
                         // 나머지 경로는 로그인한 사용자만 허용
                         .anyRequest().authenticated()
                 )

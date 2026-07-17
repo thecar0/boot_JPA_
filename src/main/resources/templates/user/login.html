@@ -7,6 +7,9 @@
 <div layout:fragment="content" class="container-md">
     <h1>Login Page</h1>
     <form action="/user/login" method="post" class="my-5">
+        <!-- CSRF 토큰 추기 -->
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
         <div class="mb-3">
             <label for="e" class="form-label">email</label>
             <input type="text" class="form-control" name="email" id="e" placeholder="test@test.com">
@@ -14,6 +17,10 @@
         <div class="mb-3">
             <label for="p" class="form-label">pwd</label>
             <input type="password" class="form-control" name="pwd" id="p" placeholder="password...">
+        </div>
+
+        <div class="mb-3 text-danger" th:if="${errMsg ne null}">
+            [[${errMsg}]]
         </div>
 
         <button type="submit" class="btn btn-warning">login</button>

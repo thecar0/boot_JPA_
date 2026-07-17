@@ -13,6 +13,9 @@
     </h2>
     <div class="card-custom">
     <form action="/board/update" enctype="multipart/form-data" method="post" class="my-5" id="modForm">
+        <!-- CSRF 토큰 추기 -->
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
         <input type="hidden" name="bno" th:value="${board.bno}">
         <div class="mb-3">
             <label for="t" class="form-label">Title</label>
@@ -70,6 +73,8 @@
     </div>
 
     <div class="bntline my-3">
+        <th:block sec:authorize="isAuthenticated()"
+                  th:if="${#authentication.name eq board.writer}">
     <a th:href="@{/board/list}" class="text-decoration-none">
         <button type="button" id="listBtn" class="btn btn-success">list</button>
     </a>
@@ -79,13 +84,14 @@
     <a th:href="@{/board/remove(bno=${board.bno})}" class="text-decoration-none">
         <button type="button" id="delBtn" class="btn btn-danger">delete</button>
     </a>
+        </th:block>
     </div>
 
     <!-- 댓글 라인 -->
     <div id="comment">
     <!-- 댓글 입력 -->
         <div class="input-group my-3">
-            <span class="input-group-text" id="cmtWriter">writer</span>
+            <span class="input-group-text" id="cmtWriter">[[${#authentication.name}]]</span>
             <input type="text" class="form-control" id="cmtText" placeholder="댓글을 입력하세요." aria-label="Username" aria-describedby="basic-addon1">
             <button type="button" id="cmtAddBtn" class="btn btn-warning">create</button>
         </div>
@@ -131,6 +137,7 @@
 
     <script th:inline="javascript">
         const bno = [[${board.bno}]];
+        const loginUser = [[${#authentication.name}]];
     </script>
     <script th:src="@{/js/boardModify.js}"></script>
     <script th:src="@{/js/boardComment.js}"></script>
